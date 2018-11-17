@@ -15,6 +15,11 @@ void OnScreen::set_position(float x, float y)
 	m_text.setPosition(x + 10.f, y + 10.f);
 }
 
+Vector2f OnScreen::get_position()
+{
+	return m_rectangleshape.getPosition();
+}
+
 void OnScreen::set_size(float x, float y)
 {
 	m_rectangleshape.setSize(Vector2f(x, y));

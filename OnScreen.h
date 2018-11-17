@@ -15,6 +15,7 @@ protected:
 
 public:
 	virtual void set_position(float x,float y);
+	Vector2f get_position();
 	virtual void set_size(float x, float y);
 	Vector2f get_size() const;
 	FloatRect getGlobalBounds();
