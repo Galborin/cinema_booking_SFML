@@ -18,6 +18,7 @@ private:
 	tm * current_day;
 	errno_t err;
 protected:
+	float scroll;
 	friend bool operator > (const tm &date1, const tm &date2);
 	friend bool operator == (const tm &date1, const tm &date2);
 	friend tm operator++ (tm &date1);

@@ -124,6 +124,7 @@ bool MyWindow::mode1()
 			text1.setPosition(0, 0);
 			current_order = new order(*current_user);
 			current_track = nullptr;
+			scroll = 0;
 			return false;
 			break;
 		}
@@ -161,6 +162,7 @@ bool MyWindow::mode2()
 		if (ev.type == sf::Event::MouseButtonPressed&&button1.getGlobalBounds().contains(mapPixelToCoords(sf::Mouse::getPosition(*this)))) {
 			button1.setFillColor(sf::Color::Red);
 			++*current_day;
+			scroll = 0;
 			if (current_track != nullptr)
 			{
 				current_track->setOutlineThickness(0.f);
@@ -173,6 +175,7 @@ bool MyWindow::mode2()
 		if (ev.type == sf::Event::MouseButtonPressed&&button2.getGlobalBounds().contains(mapPixelToCoords(sf::Mouse::getPosition(*this)))) {
 			button2.setFillColor(sf::Color::Red);
 			--*current_day;
+			scroll = 0;
 			if (current_track != nullptr)
 			{
 				current_track->setOutlineThickness(0.f);
@@ -195,13 +198,16 @@ bool MyWindow::mode2()
 		}
 		else
 			button3.setFillColor(sf::Color::Green);
+		if (ev.type == sf::Event::MouseWheelMoved)
+		{
+			scroll = scroll + ev.mouseWheel.delta;
+		}
 	}
 	draw(sprit);
-	draw(text1);
 	//what to draw:
-	for (unsigned int i=0,j = 0; i < track::track_v.size(); ++i) {
+	for (unsigned int i = 0, j = 0; i < track::track_v.size(); ++i) {
 		if ((*track::track_v[i]->get_date() == *current_day)) {
-			track::track_v[i]->set_position(0.f, 100.f + (110.f*j++));
+			track::track_v[i]->set_position(+0.f, 100.f + (110.f*j++) + scroll);
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && (track::track_v[i]->getGlobalBounds().contains(this->mapPixelToCoords(sf::Mouse::getPosition(*this)))))
 			{
 				if (current_track == nullptr) {
@@ -225,7 +231,7 @@ bool MyWindow::mode2()
 			draw(*track::track_v[i]);
 		}
 	}
-
+	draw(text1);
 	draw(button1);
 	draw(button2);
 	draw(button3);
@@ -297,7 +303,7 @@ bool MyWindow::mode4()
 	return true;
 }
 
-MyWindow::MyWindow() : current_user(user::user_v.front()),now(new tm),current_day(new tm)
+MyWindow::MyWindow() : current_user(user::user_v.front()),now(new tm),current_day(new tm),scroll(0)
 {
 	create(sf::VideoMode(1024, 768, 32), "MyWindow");//,sf::Style::Fullscreen); //1024, 768
 	setFramerateLimit(60);
