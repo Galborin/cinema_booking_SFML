@@ -6,10 +6,12 @@
 #include <iostream>
 #include <string>
 #include<vector>
+using namespace sf;
 class room :
-	public IDentity
+	public IDentity, public Drawable  
 {
 private:
+	virtual void draw(RenderTarget &target, RenderStates states) const override;
 	int m_rows_in_room;
 	int m_seats_in_row;
 	seat **m_pointer;
@@ -21,11 +23,11 @@ public:
 	room();
 	room(const room &Room);
 	void edit_room();
+	seat * get_selected() const;
 	static room * return_room(long int id);
-	seat * get_seat(int row, int seat_nr);
+	seat * get_seat(int row, int seat_nr) const;
 	void show() const;
-	void draw_seats(sf::RenderWindow &app);
-	void update(sf::RenderWindow & app);
+	void update(sf::RenderWindow & app) const;
 	~room();
 };
 
