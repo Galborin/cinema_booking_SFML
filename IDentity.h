@@ -15,6 +15,7 @@ public:
 	std::string get_name() const;
 	IDentity();
 	IDentity(std::string name);
+	IDentity(const IDentity & identity);
 	~IDentity();
 };
 

@@ -10,6 +10,7 @@ movie * movie::return_movie(long int id)
 			break;
 		}
 	}
+	std::cout << "wrong film id \n";
 	return nullptr;
 }
 

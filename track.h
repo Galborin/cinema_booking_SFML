@@ -3,26 +3,31 @@
 #include <string>
 #include "movie.h"
 #include "room.h"
+#include "IDentity.h"
+#include"OnScreen.h"
 #include<ctime>
+#include <SFML/Graphics.hpp>
+#include<iomanip>
 using namespace sf;
+
 class track : 
-	public sf::Drawable,public sf::Transformable
+	public IDentity,public OnScreen
 {
 private:
-	virtual void draw(RenderTarget& target, RenderStates states) const override;
 	const room * m_room;
 	const movie * m_movie;
-	tm m_date;
-	sf::Sprite m_sprite;
-	sf::Texture m_texture;
-	long int m_id;
+	tm * m_date;
+	long int m_track_id;
 public:
-	long int get_id();
-	static std::vector<track*>track_v;
+	void initialize();
 	static long int track_id;
-	track(const movie * Movie, const room &Roo, const tm date);
+	static std::vector<track*>track_v;
+	track(const movie * Movie, const room &Roo, tm &date);
 	track(const movie * Movie, const room &Roo);
 	track();
+	tm * get_date();
+	seat * get_selected_seats() const;
+	void draw_room(RenderWindow & target);
 	void set_movie(movie *movie);
 	void set_room(room *room);
 	void set_date();

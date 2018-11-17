@@ -1,7 +1,14 @@
 #include "pch.h"
 #include "seat.h"
 
-seat::seat() : m_is_free(true),m_nr(255),m_row(255)
+void seat::draw(RenderTarget & target, RenderStates states) const
+{
+	states.transform *= getTransform();
+	target.draw(m_seat_shape, states);
+	target.draw(text, states);
+}
+
+seat::seat() : m_is_free(true), m_is_selected(false),m_nr(255),m_row(255)
 {
 	m_seat_shape.setSize(sf::Vector2f(60, 60));
 	m_seat_shape.setFillColor(sf::Color::Green);
@@ -16,6 +23,16 @@ void seat::show_nr()
 	std::cout <<"Seat number "<< m_row << "  " << m_nr << "\n";
 }
 
+Vector2f seat::getSize()
+{
+	return m_seat_shape.getSize();
+}
+
+FloatRect seat::getGlobalBounds()
+{
+	return m_seat_shape.getGlobalBounds();
+}
+
 void seat::set_seat_nr(int Row,int Seat_nr)
 {
 	m_row = Row;
@@ -23,41 +40,26 @@ void seat::set_seat_nr(int Row,int Seat_nr)
 	text.setString(std::to_string(m_nr));
 }
 
-void seat::seat_initialize()
+void seat::set_position(float position_x, float position_y)
 {
-	m_seat_shape.setSize(sf::Vector2f(80, 80));
-	if(m_is_free == true)
-		m_seat_shape.setFillColor(sf::Color::Green);
-	else
-		m_seat_shape.setFillColor(sf::Color::Red);
-	font.loadFromFile("arial.ttf");
-	text.setFont(font);
-	text.setCharacterSize(26);
-	text.setFillColor(sf::Color::Black);
-}
-
-void seat::set_seat_position(float position_x, float position_y)
-{
-	//std::cout << position_x << " " << position_y << "\n"; //display position
 	m_seat_shape.setPosition(position_x, position_y);
 	text.setPosition(position_x+10, position_y+10);
 }
 
-char seat::get_info() {
+char seat::get_info() const
+{
 	if (m_is_free == true)
 		return('F');
 	else
 		return('R');
 }
 
-sf::RectangleShape * seat::get_shape()
+bool seat::is_selected() const
 {
-	return &m_seat_shape;
-}
-
-sf::Text * seat::get_text()
-{
-	return &text;
+	if (m_is_selected == true)
+		return true;
+	else
+		return false;
 }
 
 seat* seat::book_seat_v()
@@ -65,6 +67,18 @@ seat* seat::book_seat_v()
 	m_is_free = false;
 	m_seat_shape.setFillColor(sf::Color::Red);
 	return this;
+}
+
+void seat::select_seat()
+{
+	m_is_selected = true;
+	m_seat_shape.setFillColor(sf::Color::Magenta);
+}
+
+void seat::unselect_seat()
+{
+	m_is_selected = false;
+	m_seat_shape.setFillColor(sf::Color::Green);
 }
 
 void seat::book_seat()
