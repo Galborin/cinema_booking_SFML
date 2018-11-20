@@ -316,8 +316,8 @@ MyWindow::MyWindow() : current_user(user::user_v.front()),now(new tm),current_da
 {
 	create(sf::VideoMode(1024, 768, 32), "MyWindow");//,sf::Style::Fullscreen); //1024, 768
 	setFramerateLimit(60);
-	texture.loadFromFile("obraz.jpeg");
-	font.loadFromFile("arial.ttf");
+	texture.loadFromFile(".\\cinema_booking_SFML\\obraz.jpeg");
+	font.loadFromFile(".\\cinema_booking_SFML\\arial.ttf");
 	sprit.setTexture(texture);
 	sprit.setPosition(0, 0);
 	button1.setSize(sf::Vector2f(80, 80));

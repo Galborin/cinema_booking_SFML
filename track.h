@@ -8,7 +8,6 @@
 #include<ctime>
 #include <SFML/Graphics.hpp>
 #include<iomanip>
-#include"Resources.h"
 using namespace sf;
 
 class track : 

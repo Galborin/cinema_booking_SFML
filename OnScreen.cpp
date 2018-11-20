@@ -44,7 +44,7 @@ OnScreen::OnScreen()
 {
 	m_rectangleshape.setOutlineColor(sf::Color::Magenta);
 	m_rectangleshape.setFillColor(Color::Blue);
-	font.loadFromFile("C:\\Users\\piotr\\OneDrive\\Pulpit\\ProjectsCpp\\cinema_booking_system\\arial.ttf");
+	font.loadFromFile(".\\cinema_booking_SFML\\arial.ttf");
 	text.setFont(font);
 	text.setCharacterSize(26);
 	text.setFillColor(Color::Black);
@@ -55,7 +55,7 @@ OnScreen::OnScreen(float size_x, float size_y)
 	m_rectangleshape.setOutlineColor(sf::Color::Magenta);
 	m_rectangleshape.setFillColor(Color::Blue);
 	m_rectangleshape.setSize(Vector2f(size_x, size_y));
-	stream.open("C:\\Users\\piotr\\OneDrive\\Pulpit\\ProjectsCpp\\cinema_booking_system\\arial.ttf");
+	stream.open(".\\cinema_booking_SFML\\arial.ttf");
 	font.loadFromStream(stream);
 	text.setFont(font);
 	text.setCharacterSize(26);

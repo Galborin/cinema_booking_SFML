@@ -1,7 +1,6 @@
 #pragma once
 #include<iostream>
 #include <SFML/Graphics.hpp>
-#include"Resources.h"
 using namespace sf;
 
 class OnScreen : 
