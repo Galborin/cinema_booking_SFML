@@ -2,7 +2,7 @@
 #include "movie.h"
 
 
-movie * movie::return_movie(long int id)
+movie * movie::get_movie(long int id)
 {
 	for (auto &&i : movie_v) {
 		if (i->m_id == id) {
@@ -14,7 +14,7 @@ movie * movie::return_movie(long int id)
 	return nullptr;
 }
 
-movie * movie::return_movie(std::string title)
+movie * movie::get_movie(std::string title)
 {
 	for (auto &&i : movie_v) {
 		if (i->m_name == title) {

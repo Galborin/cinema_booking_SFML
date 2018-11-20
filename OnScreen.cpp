@@ -6,13 +6,13 @@ void OnScreen::draw(RenderTarget & target, RenderStates states) const
 {
 	states.transform *= getTransform();
 	target.draw(m_rectangleshape,states);
-	target.draw(m_text, states);
+	target.draw(text, states);
 }
 
 void OnScreen::set_position(float x, float y)
 {
 	m_rectangleshape.setPosition(x, y);
-	m_text.setPosition(x + 10.f, y + 10.f);
+	text.setPosition(x + 10.f, y + 10.f);
 }
 
 Vector2f OnScreen::get_position()
@@ -30,7 +30,7 @@ Vector2f OnScreen::get_size() const
 	return m_rectangleshape.getSize();
 }
 
-FloatRect OnScreen::getGlobalBounds()
+FloatRect OnScreen::getGlobalBounds() const
 {
 	return m_rectangleshape.getGlobalBounds();
 }
@@ -44,10 +44,10 @@ OnScreen::OnScreen()
 {
 	m_rectangleshape.setOutlineColor(sf::Color::Magenta);
 	m_rectangleshape.setFillColor(Color::Blue);
-	m_font.loadFromFile("arial.ttf");
-	m_text.setFont(m_font);
-	m_text.setCharacterSize(26);
-	m_text.setFillColor(Color::Black);
+	font.loadFromFile("C:\\Users\\piotr\\OneDrive\\Pulpit\\ProjectsCpp\\cinema_booking_system\\arial.ttf");
+	text.setFont(font);
+	text.setCharacterSize(26);
+	text.setFillColor(Color::Black);
 }
 
 OnScreen::OnScreen(float size_x, float size_y)
@@ -55,10 +55,11 @@ OnScreen::OnScreen(float size_x, float size_y)
 	m_rectangleshape.setOutlineColor(sf::Color::Magenta);
 	m_rectangleshape.setFillColor(Color::Blue);
 	m_rectangleshape.setSize(Vector2f(size_x, size_y));
-	m_font.loadFromFile("arial.ttf");
-	m_text.setFont(m_font);
-	m_text.setCharacterSize(26);
-	m_text.setFillColor(Color::Black);
+	stream.open("C:\\Users\\piotr\\OneDrive\\Pulpit\\ProjectsCpp\\cinema_booking_system\\arial.ttf");
+	font.loadFromStream(stream);
+	text.setFont(font);
+	text.setCharacterSize(26);
+	text.setFillColor(Color::Black);
 }
 
 OnScreen::~OnScreen() 

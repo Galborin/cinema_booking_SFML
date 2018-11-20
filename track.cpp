@@ -3,54 +3,36 @@
 #include<cstring>
 
 
-void track::initialize()
+void track::update()
 {
-	m_text.setString(m_movie->get_name() + " " + std::to_string(m_date->tm_hour) + ":" + std::to_string(m_date->tm_min) + " " + m_room->get_name());
+	text.setString(m_movie->get_name() + "\n"); 
+	if (m_date->tm_hour < 10) text.setString(text.getString() + "0");
+	text.setString(text.getString() + std::to_string(m_date->tm_hour) + ":");
+	if (m_date->tm_min < 10) text.setString(text.getString() + "0");
+	text.setString(text.getString() + std::to_string(m_date->tm_min)+ " " + m_room->get_name());
 }
 
-track::track(const movie * Movie, const room &Room, tm &date) : m_movie(Movie), m_room(new room(Room)), m_date(&date), m_track_id(++track_id),IDentity(), OnScreen(1000,100.f)
-{
-	track_v.push_back(this);
-	initialize();
-}
-
-track::track(const movie * Movie, const room &Room) : m_movie(Movie), m_room(new room(Room)), m_date(new tm), m_track_id(++track_id), IDentity(), OnScreen(1000.f,100.f)
-{
-	track_v.push_back(this);
-}
-
-track::track() : m_track_id(++track_id), m_date(new tm),IDentity(), OnScreen(1000.f, 100.f)
-{
-	track_v.push_back(this);
-}
-
-tm * track::get_date()
+tm * track::get_date() const
 {
 	return m_date;
 }
 
-seat * track::get_selected_seats() const
+room * track::get_room() const
 {
-	return m_room->get_selected();
+	return m_room;
 }
-
-void track::draw_room(RenderWindow & target)
-{
-	m_room->update(target);
-	target.draw(*m_room);
-}
-
 
 void track::set_movie(movie *movie)
 {
 	m_movie = movie;
+	m_name = m_name+"/"+movie->get_name();
 }
 
-void track::set_room(room * room)
+void track::set_room(room * room) 
 {
-	m_room = room;
+	m_room=room;
+	m_name = m_name +"/" + room->get_name();
 }
-
 
 void track::set_date()
 {
@@ -76,6 +58,11 @@ void track::set_date()
 	} while (bad_format == true);
 }
 
+tm * track::get_date()
+{
+	return m_date;
+}
+
 void track::set_time()
 {
 	bool bad_format;
@@ -99,16 +86,23 @@ void track::set_time()
 	} while (bad_format == true);
 }
 
-
 void track::show_info() const
 {
 	std::cout << "Movie: "; m_movie->disp_name();
-	//char buff[32];
-	//strftime(buff, sizeof buff, "%d/%m/%Y %X\n",&m_date);
-	std::cout << std::put_time(m_date, "%d/%m/%Y %X\n");//buff;
+	std::cout << std::put_time(m_date, "%d/%m/%Y %X\n");
 	m_room->show();
 }
 
+track::track(movie &Movie, const room &Room, tm &date) : m_movie(&Movie), m_room(new room(Room)), m_date(&date), m_track_id(++track_id), IDentity(Movie.get_name()+"/"+Room.get_name()), OnScreen(1000, 100.f)
+{
+	track_v.push_back(this);
+	update();
+}
+
+track::track() : m_track_id(++track_id), m_date(&(*new tm = {0,0,0,0,0,0,0,0,0})), IDentity(""), OnScreen(1000.f, 100.f)
+{
+	track_v.push_back(this);
+}
 
 track::~track()
 {
@@ -120,4 +114,5 @@ track::~track()
 		}
 	}
 	delete m_room;
+	delete m_date;
 }

@@ -8,31 +8,31 @@
 #include<ctime>
 #include <SFML/Graphics.hpp>
 #include<iomanip>
+#include"Resources.h"
 using namespace sf;
 
 class track : 
 	public IDentity,public OnScreen
 {
 private:
-	const room * m_room;
-	const movie * m_movie;
+	room * m_room;
+	movie * m_movie;
 	tm * m_date;
 	long int m_track_id;
 public:
-	void initialize();
+	void update();
 	static long int track_id;
 	static std::vector<track*>track_v;
-	track(const movie * Movie, const room &Roo, tm &date);
-	track(const movie * Movie, const room &Roo);
-	track();
-	tm * get_date();
-	seat * get_selected_seats() const;
-	void draw_room(RenderWindow & target);
+	tm * get_date() const;
+	room * get_room() const;
 	void set_movie(movie *movie);
 	void set_room(room *room);
 	void set_date();
+	tm * get_date();
 	void set_time();
 	void show_info() const;
+	track(movie & Movie, const room &Roo, tm &date);
+	track();
 	~track();
 };
 

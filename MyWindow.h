@@ -18,21 +18,22 @@ private:
 	tm * current_day;
 	errno_t err;
 protected:
+	sf::Texture texture;
+	sf::Text text1;
+	sf::Font font;
+	sf::Sprite sprit;
+	sf::RectangleShape button1;
+	sf::RectangleShape button2;
+	sf::RectangleShape button3;
+	sf::Uint32 unicode;
+	sf::Event ev;
 	float scroll;
 	friend bool operator > (const tm &date1, const tm &date2);
 	friend bool operator == (const tm &date1, const tm &date2);
 	friend tm operator++ (tm &date1);
 	friend tm operator-- (tm &date1);
 public:
-	sf::Texture texture;
-	sf::Text text1;
-	sf::Font font;
-	sf::Sprite sprit;
-	sf::RectangleShape button1; 
-	sf::RectangleShape button2;
-	sf::RectangleShape button3;
-	sf::Uint32 unicode;
-	sf::Event ev;
+
 	bool mode1();
 	bool mode2();
 	bool mode3();

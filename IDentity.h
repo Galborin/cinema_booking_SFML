@@ -16,6 +16,6 @@ public:
 	IDentity();
 	IDentity(std::string name);
 	IDentity(const IDentity & identity);
-	~IDentity();
+	virtual ~IDentity();
 };
 

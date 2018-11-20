@@ -1,36 +1,21 @@
 #include "pch.h"
 #include "seat.h"
 
-void seat::draw(RenderTarget & target, RenderStates states) const
-{
-	states.transform *= getTransform();
-	target.draw(m_seat_shape, states);
-	target.draw(text, states);
-}
 
-seat::seat() : m_is_free(true), m_is_selected(false),m_nr(255),m_row(255)
+seat::seat() : m_is_free(true), m_is_selected(false),m_nr(0),m_row(0),OnScreen(60.f,60.f)
 {
-	m_seat_shape.setSize(sf::Vector2f(60, 60));
-	m_seat_shape.setFillColor(sf::Color::Green);
-	font.loadFromFile("arial.ttf");
-	text.setFont(font);
+	m_rectangleshape.setFillColor(sf::Color::Green);
 	text.setCharacterSize(16);
-	text.setFillColor(sf::Color::Black);
 }
 
-void seat::show_nr()
+void seat::show_nr() const
 {
 	std::cout <<"Seat number "<< m_row << "  " << m_nr << "\n";
 }
 
-Vector2f seat::getSize()
+Vector2i seat::get_number() const
 {
-	return m_seat_shape.getSize();
-}
-
-FloatRect seat::getGlobalBounds()
-{
-	return m_seat_shape.getGlobalBounds();
+	return Vector2i(m_row, m_nr);
 }
 
 void seat::set_seat_nr(int Row,int Seat_nr)
@@ -42,55 +27,42 @@ void seat::set_seat_nr(int Row,int Seat_nr)
 
 void seat::set_position(float position_x, float position_y)
 {
-	m_seat_shape.setPosition(position_x, position_y);
+	m_rectangleshape.setPosition(position_x, position_y);
 	text.setPosition(position_x+10, position_y+10);
 }
 
-char seat::get_info() const
+bool seat::is_free() const
 {
-	if (m_is_free == true)
-		return('F');
-	else
-		return('R');
+	return m_is_free;
 }
 
 bool seat::is_selected() const
 {
-	if (m_is_selected == true)
-		return true;
-	else
-		return false;
-}
-
-seat* seat::book_seat_v()
-{
-	m_is_free = false;
-	m_seat_shape.setFillColor(sf::Color::Red);
-	return this;
+	return m_is_selected;
 }
 
 void seat::select_seat()
 {
 	m_is_selected = true;
-	m_seat_shape.setFillColor(sf::Color::Magenta);
+	m_rectangleshape.setFillColor(sf::Color::Magenta);
 }
 
 void seat::unselect_seat()
 {
 	m_is_selected = false;
-	m_seat_shape.setFillColor(sf::Color::Green);
+	m_rectangleshape.setFillColor(sf::Color::Green);
 }
 
 void seat::book_seat()
 {
 	m_is_free = false;
-	m_seat_shape.setFillColor(sf::Color::Red);
+	m_rectangleshape.setFillColor(sf::Color::Red);
 }
 
 void seat::unbook_seat()
 {
 	m_is_free = true;
-	m_seat_shape.setFillColor(sf::Color::Green);
+	m_rectangleshape.setFillColor(sf::Color::Green);
 }
 
 

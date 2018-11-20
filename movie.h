@@ -12,8 +12,8 @@ private:
 public:
 	long static int movie_id;
 	static std::vector <movie*> movie_v;
-	static movie* return_movie(long int id);
-	static movie* return_movie(std::string title);
+	static movie* get_movie(long int id);
+	static movie* get_movie(std::string title);
 	movie(const std::string title);
 	movie();
 	~movie();
