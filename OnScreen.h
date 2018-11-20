@@ -1,6 +1,7 @@
 #pragma once
 #include<iostream>
 #include <SFML/Graphics.hpp>
+#include"Resources.h"
 using namespace sf;
 
 class OnScreen : 
@@ -13,6 +14,7 @@ protected:
 	Font font;
 	const Texture texture;
 	sf::FileInputStream stream;
+	static Resources resources;
 public:
 	virtual void set_position(float x,float y);
 	Vector2f get_position();
