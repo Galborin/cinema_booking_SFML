@@ -6,11 +6,10 @@ user::user() : m_user_id(++user_id),IDentity()
 	user_v.push_back(this);
 }
 
-user::user(std::string login) : m_user_id(++user_id), IDentity(login)
+user::user(string login) : m_user_id(++user_id), IDentity(login)
 {
 	user_v.push_back(this);
 }
-
 
 user::~user()
 {

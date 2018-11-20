@@ -4,9 +4,10 @@
 #include"track.h"
 #include "order.h"
 #include<vector>
-
+using namespace sf;
+using namespace std;
 class MyWindow :
-	public sf::RenderWindow
+	public RenderWindow
 {
 private:
 	user * current_user;
@@ -18,15 +19,15 @@ private:
 	tm * current_day;
 	errno_t err;
 protected:
-	sf::Texture texture;
-	sf::Text text1;
-	sf::Font font;
-	sf::Sprite sprit;
-	sf::RectangleShape button1;
-	sf::RectangleShape button2;
-	sf::RectangleShape button3;
-	sf::Uint32 unicode;
-	sf::Event ev;
+	Texture texture;
+	Text text1;
+	Font font;
+	Sprite sprit;
+	RectangleShape button1;
+	RectangleShape button2;
+	RectangleShape button3;
+	Uint32 unicode;
+	Event ev;
 	float scroll;
 	friend bool operator > (const tm &date1, const tm &date2);
 	friend bool operator == (const tm &date1, const tm &date2);

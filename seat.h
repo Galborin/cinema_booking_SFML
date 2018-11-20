@@ -3,6 +3,7 @@
 #include <iostream>
 #include "OnScreen.h"
 using namespace sf;
+using namespace std;
 class seat : 
 	public OnScreen
 {

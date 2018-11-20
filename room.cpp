@@ -1,6 +1,5 @@
 #include "pch.h"
 #include "room.h"
-#include "seat.h"
 
 void room::draw(RenderTarget & target, RenderStates states) const
 {
@@ -15,18 +14,18 @@ void room::draw(RenderTarget & target, RenderStates states) const
 void room::edit_room()
 {
 	bool bad_format;
-	std::string tmp;
+	string tmp;
 	do {
 		bad_format = false;
-		std::cout << "Set room name: ";
-		getline(std::cin, tmp);
+		cout << "Set room name: ";
+		getline(cin, tmp);
 		m_name = tmp;
-		std::cout << "Set number of rows: ";
-		getline(std::cin, tmp);
-		m_rows_in_room = std::stoi(tmp);
-		std::cout << "Set number of seats in row: ";
-		getline(std::cin, tmp);
-		m_seats_in_row = std::stoi(tmp);
+		cout << "Set number of rows: ";
+		getline(cin, tmp);
+		m_rows_in_room = stoi(tmp);
+		cout << "Set number of seats in row: ";
+		getline(cin, tmp);
+		m_seats_in_row = stoi(tmp);
 	} while (bad_format == true);
 	float seat_position_x, seat_position_y;
 	m_pointer = new seat *[m_rows_in_room];
@@ -78,20 +77,20 @@ seat * room::get_seat(int row,int seat_nr) const
 
 void room::show() const
 {
-	std::cout << "Room: " << m_name << std::endl;
+	cout << "Room: " << m_name << endl;
 	for (int i = m_rows_in_room - 1; i >= 0; --i) {
 		for (int j = 0; j < m_seats_in_row; ++j) {
 			if(m_pointer[i][j].is_free())
-				std::cout << "[ ]";
+				cout << "[ ]";
 			else
-				std::cout << "[/]";
+				cout << "[/]";
 		}
-		std::cout << "  row " << i + 1 << std::endl;
+		cout << "  row " << i + 1 << endl;
 	}
 	for (int i = 1; i <= m_seats_in_row; i++) {
-		std::cout << " " << i << ((i<9) ? " " : "");
+		cout << " " << i << ((i<9) ? " " : "");
 	}
-	std::cout << std::endl<<std::endl;
+	cout << endl<<endl;
 }
 
 void room::unselect_all()
@@ -110,12 +109,12 @@ void room::unselect_all()
 	}
 }
 
-void room::update(sf::RenderWindow & app) {
+void room::update(RenderWindow & app) {
 	for (int i = 0; i < m_rows_in_room; ++i) {
 		for (int j = 0; j < m_seats_in_row; ++j) {
-			if (m_pointer[i][j].getGlobalBounds().contains(app.mapPixelToCoords(sf::Mouse::getPosition(app))))
+			if (m_pointer[i][j].getGlobalBounds().contains(app.mapPixelToCoords(Mouse::getPosition(app))))
 			{
-				if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+				if (Mouse::isButtonPressed(Mouse::Button::Left))
 				{
 					if ((m_pointer[i][j].is_free()) && (m_pointer[i][j].is_selected() == false)) {
 						m_pointer[i][j].select_seat();
@@ -129,7 +128,7 @@ void room::update(sf::RenderWindow & app) {
 							}
 						}
 					}
-					while (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {};
+					while (Mouse::isButtonPressed(Mouse::Button::Left)) {};
 				}
 			}
 		}
@@ -141,10 +140,10 @@ room::room() : m_seats_in_row(0), m_rows_in_room(0), m_room_id(++room_id), IDent
 	room_v.push_back(this);
 	screen.setSize(Vector2f(600, 80));
 	screen.setPosition(212.f, 10);
-	screen.setFillColor(sf::Color::Cyan);
+	screen.setFillColor(Color::Cyan);
 }
 
-room::room(int rows_in_room, int seats_in_row, std::string name) : m_rows_in_room(rows_in_room), m_seats_in_row(seats_in_row), m_room_id(++room_id), IDentity(name)
+room::room(int rows_in_room, int seats_in_row, string name) : m_rows_in_room(rows_in_room), m_seats_in_row(seats_in_row), m_room_id(++room_id), IDentity(name)
 {
 	room_v.push_back(this);
 	float seat_position_x, seat_position_y;
@@ -160,7 +159,7 @@ room::room(int rows_in_room, int seats_in_row, std::string name) : m_rows_in_roo
 	}
 	screen.setSize(Vector2f(600, 80));
 	screen.setPosition(212.f, 10);
-	screen.setFillColor(sf::Color::Cyan);
+	screen.setFillColor(Color::Cyan);
 }
 
 room::room(const room & Room) : m_rows_in_room(Room.m_rows_in_room), m_seats_in_row(Room.m_seats_in_row), m_room_id(Room.m_room_id), m_pointer(new seat *[Room.m_rows_in_room]),screen(Room.screen), IDentity(Room)

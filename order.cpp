@@ -16,7 +16,7 @@ void order::finish_order()
 
 void order::show_order() const
 {
-	cout << "track id: " << track_id << " Title/Room: " << track_title <<" Track date: "<< std::put_time(&track_date, "%d/%m/%Y %X") <<"\nSeats:\n";
+	cout << "track id: " << track_id << " Title/Room: " << track_title <<" Track date: "<< put_time(&track_date, "%d/%m/%Y %X") <<"\nSeats:\n";
 	for (auto i = 0; i<m_selected;++i)
 	{
 		cout <<"row "<<m_pointer[i]->get_number().x + 1<< " nr. " << m_pointer[i]->get_number().y << "\n";

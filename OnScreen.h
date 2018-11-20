@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include"Resources.h"
 using namespace sf;
-
+using namespace std;
 class OnScreen : 
 	public Drawable, public Transformable
 {
@@ -13,7 +13,7 @@ protected:
 	Text text;
 	Font font;
 	const Texture texture;
-	sf::FileInputStream stream;
+	FileInputStream stream;
 	static Resources resources;
 public:
 	virtual void set_position(float x,float y);

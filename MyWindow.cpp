@@ -92,17 +92,17 @@ tm operator--(tm & date1)
 bool MyWindow::mode1()//signing up, logging in
 {
 	unicode = 0;
-	clear(sf::Color::Blue);
+	clear(Color::Blue);
 	while (pollEvent(ev)) {
 
 
-		if (ev.type == sf::Event::Closed || (ev.type == sf::Event::KeyPressed&&ev.key.code == sf::Keyboard::Escape)) {
+		if (ev.type == Event::Closed || (ev.type == Event::KeyPressed&&ev.key.code == Keyboard::Escape)) {
 			close();
 			break;
 		}
-		if (ev.type == sf::Event::MouseButtonPressed&&button1.getGlobalBounds().contains(mapPixelToCoords(sf::Mouse::getPosition(*this))))
+		if (ev.type == Event::MouseButtonPressed&&button1.getGlobalBounds().contains(mapPixelToCoords(Mouse::getPosition(*this))))
 		{
-			button1.setFillColor(sf::Color::Red);
+			button1.setFillColor(Color::Red);
 			if (text1.getString().getSize() > 7) {
 				current_user = nullptr;
 				for (unsigned int i = 0; i < user::user_v.size(); ++i)
@@ -117,10 +117,10 @@ bool MyWindow::mode1()//signing up, logging in
 					current_user = new user(text1.getString().substring(7, text1.getString().getSize()));
 				}
 				//logged_in(menu_window);
-				button1.setFillColor(sf::Color::Green);
+				button1.setFillColor(Color::Green);
 				t = time(NULL);
 				err = localtime_s(current_day, &t);
-				text1.setString("Logged as: " + current_user->get_name() + "\n" + std::to_string(current_day->tm_mday) + "." + std::to_string(current_day->tm_mon + 1));
+				text1.setString("Logged as: " + current_user->get_name() + "\n" + to_string(current_day->tm_mday) + "." + to_string(current_day->tm_mon + 1));
 				text1.setPosition(0, 0);
 				current_track = nullptr;
 				scroll = 0;
@@ -129,9 +129,9 @@ bool MyWindow::mode1()//signing up, logging in
 			}
 		}
 		else
-			button1.setFillColor(sf::Color::Green);
+			button1.setFillColor(Color::Green);
 
-		if (ev.type == sf::Event::TextEntered)
+		if (ev.type == Event::TextEntered)
 			unicode = ev.text.unicode;
 	}
 	if (unicode == 8)
@@ -155,12 +155,12 @@ bool MyWindow::mode2()//choosing track
 	t = time(NULL);
 	err = localtime_s(now, &t);
 
-	clear(sf::Color::Blue);
+	clear(Color::Blue);
 	while (pollEvent(ev)) {
-		if (ev.type == sf::Event::Closed || (ev.type == sf::Event::KeyPressed&&ev.key.code == sf::Keyboard::Escape))
+		if (ev.type == Event::Closed || (ev.type == Event::KeyPressed&&ev.key.code == Keyboard::Escape))
 			close();
-		if (ev.type == sf::Event::MouseButtonPressed&&button1.getGlobalBounds().contains(mapPixelToCoords(sf::Mouse::getPosition(*this)))) {
-			button1.setFillColor(sf::Color::Red);
+		if (ev.type == Event::MouseButtonPressed&&button1.getGlobalBounds().contains(mapPixelToCoords(Mouse::getPosition(*this)))) {
+			button1.setFillColor(Color::Red);
 			++*current_day;
 			scroll = 0;
 			if (current_track != nullptr)
@@ -168,12 +168,12 @@ bool MyWindow::mode2()//choosing track
 				current_track->setOutlineThickness(0.f);
 				current_track = nullptr;
 			}
-			text1.setString("Logged as: " + current_user->get_name() + "\n" + std::to_string(current_day->tm_mday) + "." + std::to_string(current_day->tm_mon + 1));
+			text1.setString("Logged as: " + current_user->get_name() + "\n" + to_string(current_day->tm_mday) + "." + to_string(current_day->tm_mon + 1));
 		}
 		else
-			button1.setFillColor(sf::Color::Green);
-		if (ev.type == sf::Event::MouseButtonPressed&&button2.getGlobalBounds().contains(mapPixelToCoords(sf::Mouse::getPosition(*this)))) {
-			button2.setFillColor(sf::Color::Red);
+			button1.setFillColor(Color::Green);
+		if (ev.type == Event::MouseButtonPressed&&button2.getGlobalBounds().contains(mapPixelToCoords(Mouse::getPosition(*this)))) {
+			button2.setFillColor(Color::Red);
 			--*current_day;
 			scroll = 0;
 			if (current_track != nullptr)
@@ -181,12 +181,12 @@ bool MyWindow::mode2()//choosing track
 				current_track->setOutlineThickness(0.f);
 				current_track = nullptr;
 			}
-			text1.setString("Logged as: " + current_user->get_name() + "\n" + std::to_string(current_day->tm_mday) + "." + std::to_string(current_day->tm_mon + 1));
+			text1.setString("Logged as: " + current_user->get_name() + "\n" + to_string(current_day->tm_mday) + "." + to_string(current_day->tm_mon + 1));
 		}
 		else
-			button2.setFillColor(sf::Color::Green);
-		if (ev.type == sf::Event::MouseButtonPressed&&button3.getGlobalBounds().contains(mapPixelToCoords(sf::Mouse::getPosition(*this)))) {
-			button3.setFillColor(sf::Color::Red);
+			button2.setFillColor(Color::Green);
+		if (ev.type == Event::MouseButtonPressed&&button3.getGlobalBounds().contains(mapPixelToCoords(Mouse::getPosition(*this)))) {
+			button3.setFillColor(Color::Red);
 			if (current_track != nullptr) {
 				//track is chosen;
 				current_track->setOutlineThickness(0);
@@ -196,8 +196,8 @@ bool MyWindow::mode2()//choosing track
 			}
 		}
 		else
-			button3.setFillColor(sf::Color::Green);
-		if (ev.type == sf::Event::MouseWheelMoved)
+			button3.setFillColor(Color::Green);
+		if (ev.type == Event::MouseWheelMoved)
 		{
 			scroll = scroll + ev.mouseWheel.delta;
 		}
@@ -207,7 +207,7 @@ bool MyWindow::mode2()//choosing track
 	for (unsigned int i = 0, j = 0; i < track::track_v.size(); ++i) {
 		if ((*track::track_v[i]->get_date() == *current_day)) {
 			track::track_v[i]->set_position(+0.f, 100.f + (110.f*j++) + (scroll*10));
-			if (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left) && (track::track_v[i]->getGlobalBounds().contains(this->mapPixelToCoords(sf::Mouse::getPosition(*this)))))
+			if (Mouse::isButtonPressed(Mouse::Button::Left) && (track::track_v[i]->getGlobalBounds().contains(this->mapPixelToCoords(Mouse::getPosition(*this)))))
 			{
 				if (current_track == nullptr) {
 					current_track = track::track_v[i];
@@ -225,7 +225,7 @@ bool MyWindow::mode2()//choosing track
 					current_track = track::track_v[i];
 					track::track_v[i]->setOutlineThickness(10.f);
 				}
-				while (sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)) {};
+				while (Mouse::isButtonPressed(Mouse::Button::Left)) {};
 			}
 			draw(*track::track_v[i]);
 		}
@@ -240,31 +240,31 @@ bool MyWindow::mode2()//choosing track
 
 bool MyWindow::mode3()//choosing seats
 {
-	clear(sf::Color::Blue);
+	clear(Color::Blue);
 	
 	while (pollEvent(ev)) {
-		if (ev.type == sf::Event::Closed || (ev.type == sf::Event::KeyPressed&&ev.key.code == sf::Keyboard::Escape))
+		if (ev.type == Event::Closed || (ev.type == Event::KeyPressed&&ev.key.code == Keyboard::Escape))
 			close();
-		if (ev.type == sf::Event::MouseButtonPressed&&button3.getGlobalBounds().contains(mapPixelToCoords(sf::Mouse::getPosition(*this)))) {
-			button3.setFillColor(sf::Color::Red);
+		if (ev.type == Event::MouseButtonPressed&&button3.getGlobalBounds().contains(mapPixelToCoords(Mouse::getPosition(*this)))) {
+			button3.setFillColor(Color::Red);
 			current_order->finish_order();
-			std::cout << "Order completed!\n";
+			cout << "Order completed!\n";
 			text1.setString("" + current_user->get_name() + ",\n" + "YOUR ORDER IS COMPLETED");
 			text1.setPosition(100, 200);
 			current_order->show_order();
 			return false;
 		}
 		else
-			button3.setFillColor(sf::Color::Green);
-		if (ev.type == sf::Event::MouseButtonPressed&&button2.getGlobalBounds().contains(mapPixelToCoords(sf::Mouse::getPosition(*this)))) {
-			button2.setFillColor(sf::Color::Red);
+			button3.setFillColor(Color::Green);
+		if (ev.type == Event::MouseButtonPressed&&button2.getGlobalBounds().contains(mapPixelToCoords(Mouse::getPosition(*this)))) {
+			button2.setFillColor(Color::Red);
 			current_track->get_room()->unselect_all();
 			current_track = nullptr;
 			delete current_order;
 			while (mode2()) {};
 		}
 		else
-			button2.setFillColor(sf::Color::Green);
+			button2.setFillColor(Color::Green);
 	}
 
 	draw(sprit);
@@ -281,26 +281,26 @@ bool MyWindow::mode3()//choosing seats
 
 bool MyWindow::mode4() //order completed
 {
-	clear(sf::Color::Blue);
+	clear(Color::Blue);
 	t = time(NULL);
 	err = localtime_s(current_day, &t);
-	text1.setString(current_user->get_name() + ",\n" + "YOUR ORDER IS COMPLETED" + "\n" + std::to_string(current_day->tm_mday) + "." + std::to_string(current_day->tm_mon + 1) + "  "); 
+	text1.setString(current_user->get_name() + ",\n" + "YOUR ORDER IS COMPLETED" + "\n" + to_string(current_day->tm_mday) + "." + to_string(current_day->tm_mon + 1) + "  "); 
 	if (current_day->tm_hour < 10) text1.setString(text1.getString() + "0");
-	text1.setString(text1.getString() + std::to_string(current_day->tm_hour) + ":");
+	text1.setString(text1.getString() + to_string(current_day->tm_hour) + ":");
 	if (current_day->tm_min < 10) text1.setString(text1.getString() + "0");
-	text1.setString(text1.getString() + std::to_string(current_day->tm_min));
+	text1.setString(text1.getString() + to_string(current_day->tm_min));
 	while (pollEvent(ev)) {
-		if (ev.type == sf::Event::Closed || (ev.type == sf::Event::KeyPressed&&ev.key.code == sf::Keyboard::Escape))
+		if (ev.type == Event::Closed || (ev.type == Event::KeyPressed&&ev.key.code == Keyboard::Escape))
 			close();
-		if (ev.type == sf::Event::MouseButtonPressed&&button3.getGlobalBounds().contains(mapPixelToCoords(sf::Mouse::getPosition(*this)))) {
-			button3.setFillColor(sf::Color::Red);
+		if (ev.type == Event::MouseButtonPressed&&button3.getGlobalBounds().contains(mapPixelToCoords(Mouse::getPosition(*this)))) {
+			button3.setFillColor(Color::Red);
 
 			text1.setString("Login: ");
 			text1.setPosition(300, 300);
 			return false;
 		}
 		else
-			button3.setFillColor(sf::Color::Green);
+			button3.setFillColor(Color::Green);
 	}
 
 	draw(sprit);
@@ -314,21 +314,21 @@ bool MyWindow::mode4() //order completed
 
 MyWindow::MyWindow() : current_user(user::user_v.front()),now(new tm),current_day(new tm),scroll(0)
 {
-	create(sf::VideoMode(1024, 768, 32), "MyWindow");//,sf::Style::Fullscreen); //1024, 768
+	create(VideoMode(1024, 768, 32), "MyWindow");//,Style::Fullscreen); //1024, 768
 	setFramerateLimit(60);
 	texture.loadFromFile(".\\cinema_booking_SFML\\obraz.jpeg");
 	font.loadFromFile(".\\cinema_booking_SFML\\arial.ttf");
 	sprit.setTexture(texture);
 	sprit.setPosition(0, 0);
-	button1.setSize(sf::Vector2f(80, 80));
+	button1.setSize(Vector2f(80, 80));
 	button1.setPosition(900, 688);
-	button2.setSize(sf::Vector2f(80, 80));
+	button2.setSize(Vector2f(80, 80));
 	button2.setPosition(44, 688);
-	button3.setSize(sf::Vector2f(200, 80));
+	button3.setSize(Vector2f(200, 80));
 	button3.setPosition(412, 688);
 	text1.setFont(font);
 	text1.setCharacterSize(40);
-	text1.setFillColor(sf::Color::Red);
+	text1.setFillColor(Color::Red);
 	text1.setString("Login: ");
 	text1.setPosition(300, 300);
 	

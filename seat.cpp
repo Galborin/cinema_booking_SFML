@@ -4,13 +4,13 @@
 
 seat::seat() : m_is_free(true), m_is_selected(false),m_nr(0),m_row(0),OnScreen(60.f,60.f)
 {
-	m_rectangleshape.setFillColor(sf::Color::Green);
+	m_rectangleshape.setFillColor(Color::Green);
 	text.setCharacterSize(16);
 }
 
 void seat::show_nr() const
 {
-	std::cout <<"Seat number "<< m_row << "  " << m_nr << "\n";
+	cout <<"Seat number "<< m_row << "  " << m_nr << "\n";
 }
 
 Vector2i seat::get_number() const
@@ -22,7 +22,7 @@ void seat::set_seat_nr(int Row,int Seat_nr)
 {
 	m_row = Row;
 	m_nr = Seat_nr;
-	text.setString(std::to_string(m_nr));
+	text.setString(to_string(m_nr));
 }
 
 void seat::set_position(float position_x, float position_y)
@@ -44,25 +44,25 @@ bool seat::is_selected() const
 void seat::select_seat()
 {
 	m_is_selected = true;
-	m_rectangleshape.setFillColor(sf::Color::Magenta);
+	m_rectangleshape.setFillColor(Color::Magenta);
 }
 
 void seat::unselect_seat()
 {
 	m_is_selected = false;
-	m_rectangleshape.setFillColor(sf::Color::Green);
+	m_rectangleshape.setFillColor(Color::Green);
 }
 
 void seat::book_seat()
 {
 	m_is_free = false;
-	m_rectangleshape.setFillColor(sf::Color::Red);
+	m_rectangleshape.setFillColor(Color::Red);
 }
 
 void seat::unbook_seat()
 {
 	m_is_free = true;
-	m_rectangleshape.setFillColor(sf::Color::Green);
+	m_rectangleshape.setFillColor(Color::Green);
 }
 
 

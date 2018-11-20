@@ -10,11 +10,11 @@ movie * movie::get_movie(long int id)
 			break;
 		}
 	}
-	std::cout << "wrong film id \n";
+	cout << "wrong film id \n";
 	return nullptr;
 }
 
-movie * movie::get_movie(std::string title)
+movie * movie::get_movie(string title)
 {
 	for (auto &&i : movie_v) {
 		if (i->m_name == title) {
@@ -25,7 +25,7 @@ movie * movie::get_movie(std::string title)
 	return new movie(title);
 }
 
-movie::movie(std::string title) : m_movie_id(++movie_id) ,IDentity(title)
+movie::movie(string title) : m_movie_id(++movie_id) ,IDentity(title)
 {
 	movie_v.push_back(this);
 }

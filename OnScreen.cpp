@@ -42,7 +42,7 @@ void OnScreen::setOutlineThickness(float thic)
 
 OnScreen::OnScreen()
 {
-	m_rectangleshape.setOutlineColor(sf::Color::Magenta);
+	m_rectangleshape.setOutlineColor(Color::Magenta);
 	m_rectangleshape.setFillColor(Color::Blue);
 	text.setFont(resources.font);
 	text.setCharacterSize(26);
@@ -51,7 +51,7 @@ OnScreen::OnScreen()
 
 OnScreen::OnScreen(float size_x, float size_y)
 {
-	m_rectangleshape.setOutlineColor(sf::Color::Magenta);
+	m_rectangleshape.setOutlineColor(Color::Magenta);
 	m_rectangleshape.setFillColor(Color::Blue);
 	m_rectangleshape.setSize(Vector2f(size_x, size_y));
 	text.setFont(resources.font);

@@ -8,8 +8,9 @@
 #include<ctime>
 #include <SFML/Graphics.hpp>
 #include<iomanip>
+#include<cstring>
 using namespace sf;
-
+using namespace std;
 class track : 
 	public IDentity,public OnScreen
 {
@@ -21,7 +22,7 @@ private:
 public:
 	void update();
 	static long int track_id;
-	static std::vector<track*>track_v;
+	static vector<track*>track_v;
 	tm * get_date() const;
 	room * get_room() const;
 	void set_movie(movie *movie);

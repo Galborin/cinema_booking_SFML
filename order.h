@@ -18,7 +18,7 @@ private:
 	tm track_date;
 public:
 	long static int order_id;
-	static std::vector <order *> order_v;
+	static vector <order *> order_v;
 	void finish_order();
 	void show_order() const;
 	track * get_track();

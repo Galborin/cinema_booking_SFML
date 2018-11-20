@@ -1,5 +1,3 @@
-/*cinema room*/
-
 #pragma once
 #include "seat.h"
 #include"IDentity.h"
@@ -21,7 +19,7 @@ private:
 	vector <seat *> selected_v;
 public:
 	long static int room_id;
-	static std::vector<room*>room_v;
+	static vector<room*>room_v;
 	void edit_room();
 	void book_selected();
 	vector<seat*> & get_selected_v();
@@ -29,9 +27,9 @@ public:
 	seat * get_seat(int row, int seat_nr) const;
 	void show() const;
 	void unselect_all();
-	void update(sf::RenderWindow & app);
+	void update(RenderWindow & app);
 	room();
-	room(int rows_number, int seats_in_row, std::string name);
+	room(int rows_number, int seats_in_row, string name);
 	room(const room &Room);
 	~room();
 };
